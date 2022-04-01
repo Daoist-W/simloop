@@ -1,5 +1,5 @@
 > Declaring war on the mundane by automating it!
-This script has saved a pysics student time by automating the boring process of manually changing values in a file for their simulation!
+This script has saved a physics student time by automating the boring process of manually changing values in a file for their simulation!
 
 Feel free to use and abuse it if it suits you!
 
