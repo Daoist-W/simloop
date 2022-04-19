@@ -36,7 +36,6 @@ function usage {
 	echo '	all Geant4 output is redirected to geant4output.txt' >&2
 	echo '	  -v          Verbose mode' >&2
 	echo -e '	  -f \e[4mFILENAME\e[0m Change default prefix for results files' >&2
-
 }
 
 # this function checks if the previous command was successful, if it fails then an error message is shown and 
@@ -112,8 +111,17 @@ do
 
 	# make > /dev/null
 	checkStatus "something went wrong with make, please review"
-	# ./exampleB4a -m run1.mac > geant4output.txt
+	./exampleB4a -m run1.mac > geant4output.txt
 	checkStatus "something went wrong with executing the exampleB4a file, please review"
+
+	# extract abso and gap from geant4output.txt and add it to neutron_cross_section.txt
+	ABSO=$(cat geant4output.txt | grep abso)
+	GAP=$(cat geant4output.txt | grep gap)
+	echo "$ABSO $GAP" >> ${FILENAME}neutron_cross_section.txt
+
+	log "saving neutron_cross_sections for run $RUN: 
+		\n\tabso: $ABSO 
+		\n\tgap: $GAP"
 
 	log "saving results to ./results..."
 	# create directory ./results if it doesn't exist
